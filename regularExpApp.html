@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Regular Expression Testing App</title>
+	<style>
+		body{
+			background-color: black;
+			display: flex;
+			justify-content:center ;
+			padding: 50px;
+			color: white;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+			font-size: 20px;
+		}
+		input{
+			width: 95%;
+			padding: 20px 5px;
+			font-size: 24px;
+		}
+		textarea {
+			padding: 10px;
+			width: 95%;
+			height: 300px;
+			font-size: 16px;
+		}
+		#cont{
+			padding: 10px;
+			width: 650px;
+			height: 800px;
+			border: 1px solid rgb(252, 249, 249);
+			border-radius: 10px;
+		}
+		button:hover{
+			background-color: rgba(101, 105, 108, 0.788);
+			cursor: pointer;
+		}
+		span {
+			background-color: rgba(240, 128, 128, 0.788);
+		}
+		.btns{
+			display: flex;
+			justify-content: center;
+		}
+		button{
+			border-radius: 5px;
+			font-size: 20px;
+			background-color: lightgreen;
+		}
+	</style>
+</head>
+<body>
+	<div id="cont">
+		<h1>Regular Expression Testing App</h1>
+		<label for="pattern">Pattern:</label>
+		<input type="text" id="pattern" placeholder="Enter pattern">
+		<br> <br>
+		<label for="text">Text:</label> <br>
+		<textarea id="text" placeholder="Enter text"></textarea>
+		<br>
+		<div class="btns">
+			<button id="btn">Match</button>
+		</div>
+		<br>
+		<div id="res"></div>
+	</div>
+	<script>
+        let text= document.getElementById("text");
+        let pattern= document.getElementById("pattern");
+        document.getElementById("btn").addEventListener("click", function(){
+			let pat = RegExp(pattern.value, "g");
+			let txt = text.value;
+			let matched = txt.match(pat);
+			if(matched){
+				console.log(matched);
+				let highlightedText= txt.replace(pat, '<span>$&</span>');
+				document.getElementById("res").innerHTML=highlightedText;
+			}
+			else{
+				alert("Match not found");
+			}
+        });
+	</script>
+</body>
+</html>
