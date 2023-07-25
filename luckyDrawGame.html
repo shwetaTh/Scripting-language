@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lucky Draw Game</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+        p{
+            font-size: 40px;
+        }
+		h1 {
+			text-align: center;
+			font-size: 36px;
+		}
+
+		input {
+			margin: 10px;
+			padding: 10px;
+			font-size: 18px;
+		}
+
+		button {
+			margin: 10px;
+			padding: 10px;
+			font-size: 18px;
+		}
+
+		.list {
+			margin-top: 20px;
+			font-size: 18px;
+		}
+
+		.winner {
+			margin-top: 20px;
+			font-size: 24px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Lucky Draw Game</h1>
+        <p id="result"></p>
+		<input type="text" id="nameInput" placeholder="Enter your name" autocomplete="off">
+        <div class="btns">
+            <button id="assignNumberBtn">Assign Number</button>
+            <button id="showListBtn">Show List</button>
+        </div>
+        <button id="startGameBtn">Start Game</button>
+		<div class="list" id="list"></div>
+		<div class="winner" id="winner"></div>
+	</div>
+	<script>
+        const names = [];
+const numbers = [];
+const listDiv = document.getElementById('list');
+const winnerDiv = document.getElementById('winner');
+
+document.getElementById('assignNumberBtn').addEventListener('click', assignNumber);
+document.getElementById('showListBtn').addEventListener('click', showList);
+document.getElementById('startGameBtn').addEventListener('click', startGame);
+var res = document.getElementById('result');
+
+function assignNumber() {
+    var name = document.getElementById('nameInput').value;
+    if (name) {
+        if (names.includes(name)) {
+            alert('This name is already assigned a number!');
+            return;
+        }
+        const number = Math.floor(Math.random() * 20) + 1;
+        if (numbers.includes(number)) {
+            assignNumber();
+            return;
+        }
+        names.push(name);
+        numbers.push(number);
+        res.innerText= name + ", your number is: " + number;
+        document.getElementById('nameInput').value = '';
+    } else {
+        alert('Please enter your name!');
+    }
+}
+function showList() {
+    let listHtml = '<ul>';
+    for (let i = 0; i < names.length; i++) {
+        listHtml += `<li>${names[i]} - ${numbers[i]}</li>`;
+    }
+    listHtml += '</ul>';
+    listDiv.innerHTML = listHtml;
+}
+function startGame() {
+    if (names.length < 2) {
+        alert('At least two players are needed to start the game!');
+        return;
+    }
+    const index = Math.floor(Math.random() * names.length);
+    const winner = `${names[index]} - ${numbers[index]}`;
+    winnerDiv.innerHTML = `The winner is: ${winner}`;
+}
+ </script>
+</body>
+</html>
