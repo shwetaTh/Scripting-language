@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Traversing Check</title>
+    <style>
+        *{
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Hello World</p>
+    <p id="sel">Hello</p>
+    <p>Hi</p>
+    <button id="domCheck">Click to check</button>
+    <script>
+       let test= document.getElementById('sel');
+       document.getElementById('domCheck').addEventListener("click", function(){
+        test.textContent="Selected Text"
+        test.nextElementSibling.textContent="DOM Traversing working";
+        test.parentNode.style.border="2px solid black";
+        test.nextElementSibling.style.backgroundColor="lightPink";
+        test.previousElementSibling.textContent="Text has changed";
+       });
+    </script>
+</body>
+</html>
