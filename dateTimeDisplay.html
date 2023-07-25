@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>clock</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+            display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			background-color: #0a0a0a;
+		}
+		.box {
+			position: absolute;
+            border-radius: 20px;
+			animation: rotate 10s linear infinite;
+			opacity: 0.5;
+		}
+		.box1 {
+            width: 500px;
+			height: 500px;
+			background: linear-gradient(to right, #9900ff, #cc66ff);
+			top: 0;
+			left: 0;
+			animation-delay: -3s;
+		}
+        .box5{
+            width: 200px;
+			height: 200px;
+			background: linear-gradient(to right, #fa3048, #ea6767);
+			top: 0;
+			left: 0;
+			animation-delay: -3s;
+		}
+		.box3 {
+
+            width: 500px;
+			height: 500px;
+			background: linear-gradient(to right, #66ccff, #0066ff);
+			bottom: 0;
+			right: 0;
+			animation-delay: -9s;
+		}
+        .box4 {
+            width: 200px;
+			height: 200px;
+			background: linear-gradient(to right, #66ff66, #00ffaa);
+			bottom: 0;
+			right: 0;
+			animation-delay: -9s;
+		}
+		@keyframes rotate {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+        .container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background-color: rgb(11, 11, 11);
+			padding: 20px;
+			border-radius: 10px;
+            animation: pulse 2s infinite;
+            font-family: monospace;
+		}
+		.time {
+            color: rgba(240, 248, 255, 0.633);
+			font-size: 120px;
+			font-weight: bold;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		.date {
+            color: rgba(240, 248, 255, 0.633);
+			font-size: 50px;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+        @keyframes pulse {
+			0% {
+                box-shadow: 0 0 25px rgba(229, 48, 239, 0.977);
+			}
+			50% {
+                box-shadow: 0 0 25px rgba(48, 140, 239, 0.977);
+			}
+			100% {
+                box-shadow: 0 0 25px rgba(191, 48, 239, 0.977);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="box box1"></div>
+	<div class="box box3"></div>
+    <div class="box box4"></div>
+    <div class="box box5"></div>
+    <div class="container">
+		<p class="time"></p>
+		<p class="date"></p>
+	</div>
+    <script>
+		function updateTime() {
+			const now = new Date();
+			const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+			const date = now.toLocaleDateString();
+			const day = now.toLocaleDateString([], { weekday: 'long' });
+
+			document.querySelector('.time').textContent = time;
+			document.querySelector('.date').textContent = `${date} (${day})`;
+		}
+		updateTime();
+		setInterval(updateTime, 1000);
+	</script>
+</body>
+</html>
