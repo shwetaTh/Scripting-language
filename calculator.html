@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Calculator</title>
+    <style>
+body{
+  background-color: black;
+}
+.calculator {
+  width: 245px;
+  margin: 200px auto;
+  padding: 20px;
+  background-color: rgb(209, 208, 209);
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #ccc;
+}
+.row {
+  display: flex;
+}
+button {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  margin: 5px;
+  background-color: #7170716c;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+  cursor: pointer;
+}
+.equals{
+    width: 110px;
+    background-color: rgba(85, 221, 126, 0.505);
+}
+button:hover {
+  background-color: #e6e6e6c7;
+}
+#result {
+  width: 90%;
+  height: 50px;
+  font-size: 30px;
+  text-align: right;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #7170716c;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+  padding-right: 10px;
+}
+</style>
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="text" id="result" disabled>
+      <div class="row">
+        <button onclick="clearResult()">C</button>
+        <button onclick="backspace()">Del</button>
+        <button onclick="power()">x<sup>2</sup></button>
+        <button onclick="operator('%')">%</button>
+      </div>
+      <div class="row">
+        <button onclick="addToResult(7)">7</button>
+        <button onclick="addToResult(8)">8</button>
+        <button onclick="addToResult(9)">9</button>
+        <button onclick="operator('/')">/</button>
+      </div>
+      <div class="row">
+        <button onclick="addToResult(4)">4</button>
+        <button onclick="addToResult(5)">5</button>
+        <button onclick="addToResult(6)">6</button>
+        <button onclick="operator('*')">*</button>
+      </div>
+      <div class="row">
+        <button onclick="addToResult(1)">1</button>
+        <button onclick="addToResult(2)">2</button>
+        <button onclick="addToResult(3)">3</button>
+        <button onclick="operator('-')">-</button>
+      </div>
+      <div class="row">
+        <button onclick="addToResult(0)">0</button>
+        <button onclick="addToResult('.')">.</button>
+        <button onclick="squareRoot()">&#8730;</button>
+        <button onclick="operator('+')">+</button>
+      </div>
+      <div class="row">
+        <button onclick="addToResult('(')">(</button>
+        <button onclick="addToResult(')')">)</button>
+        <button onclick="calculate()" class="equals">=</button>
+      </div>
+    </div>
+    <script>
+let result = document.getElementById("result");
+
+function addToResult(value) {
+  result.value += value;
+}
+function clearResult() {
+  result.value = "";
+}
+function backspace() {
+  result.value = result.value.slice(0, -1);
+}
+function calculate() {
+  let expression = result.value;
+  let operator = null;
+  let operands = [];
+  for (let i = 0; i < expression.length; i++) {
+    let char = expression.charAt(i);
+    if (char === "+" || char === "-" || char === "*" || char === "/" || char === "%") {
+      operator = char;
+      operands.push(parseFloat(expression.slice(0, i)));
+      expression = expression.slice(i + 1);
+      i = -1;
+    }
+  }
+  operands.push(parseFloat(expression));
+  let resultValue = null;
+  switch (operator) {
+    case "+":
+      resultValue = operands[0] + operands[1];
+      break;
+    case "-":
+      resultValue = operands[0] - operands[1];
+      break;
+    case "*":
+      resultValue = operands[0] * operands[1];
+      break;
+    case "/":
+      resultValue = operands[0] / operands[1];
+      break;
+    case "%":
+      resultValue = operands[0]/100;
+      break;  
+  }
+  result.value = resultValue;
+}
+
+function operator(operator) {
+  result.value += operator;
+}
+
+function squareRoot() {
+  result.value = Math.sqrt(result.value);
+}
+function power() {
+  result.value = Math.pow(result.value, 2);
+}
+    </script>
+  </body>
+</html>
