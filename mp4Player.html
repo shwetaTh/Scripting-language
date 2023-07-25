@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Video Player</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #3d3c3c38;
+      }
+      img{
+        width: 190px;
+      }
+      h1 {
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background-color: #222;
+        color: #fff;
+      }
+      .video-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 50px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+      }
+      video {
+        width: 70%;
+        height: 70%;
+        margin-right: 20px;
+      }
+      .video-controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
+        margin-right: 10px;
+        background-color: #222;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #444;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        display: flex;
+        gap: 20px;
+        font-size: 16px;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        background-color: #eee;
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: #ddd;
+      }
+      li.active {
+        background-color: #222;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Video Player</h1>
+    <div class="video-container">
+      <video id="video-player"></video>
+      <ul id="video-list">
+        <h2>Video List</h2>
+      </ul>
+    </div>
+    <div class="video-controls">
+        <button id="previous-btn">Previous</button>
+        <button id="play-pause-btn">Play</button>
+        <button id="next-btn">Next</button>
+    </div>
+    <script>
+      const videos = [
+    {
+      title: "Radiohead - No surprises // official music video",
+      src: "Radiohead - No Surprises.mp4",
+      imgg: "radio.PNG"
+    },
+    {
+      title: "Stephen Dawes - Teenage Dream (Lyric Video)",
+      src: "Stephen Dawes - Teenage Dream (Lyric Video).mp4",
+      imgg: "dream.PNG"
+    },
+    {
+      title: "d4vd - Here With Me (Official Audio)",
+      src: "d4vd - Here With Me (Official Audio).mp4",
+      imgg: "here.PNG"
+    },
+    {
+      title: "Conan Gray - Heather",
+      src: "Conan Gray - Heather.mp4",
+      imgg: "heather.PNG"
+    },
+  ];
+  
+  const videoPlayer = document.getElementById("video-player");
+  const playPauseBtn = document.getElementById("play-pause-btn");
+  const previousBtn = document.getElementById("previous-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const videoList = document.getElementById("video-list");
+  
+  let currentVideoIndex = 0;
+  
+  loadVideo(videos[currentVideoIndex]);
+  
+  function loadVideo(video) {
+    videoPlayer.src = video.src;
+    videoPlayer.load();
+  }
+  playPauseBtn.addEventListener("click", function() {
+    if (videoPlayer.paused) {
+      videoPlayer.play();
+      playPauseBtn.textContent = "Pause";
+    } else {
+      videoPlayer.pause();
+      playPauseBtn.textContent = "Play";
+    }
+  });
+  
+  nextBtn.addEventListener("click", function() {
+    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+    loadVideo(videos[currentVideoIndex]);
+    videoPlayer.play();
+    playPauseBtn.textContent = "Pause";
+  });
+  
+  previousBtn.addEventListener("click", function() {
+    currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+    loadVideo(videos[currentVideoIndex]);
+    videoPlayer.play();
+    playPauseBtn.textContent = "Pause";
+  });
+  
+for (let i = 0; i < videos.length; i++) {
+    const li = document.createElement("li");
+    li.innerHTML= "<img src=\"" + videos[i].imgg +"\"> <p>"+ videos[i].title + "</P>";
+    li.addEventListener("click", function() {
+      currentVideoIndex = i;
+      loadVideo(videos[currentVideoIndex]);
+      videoPlayer.play();
+      playPauseBtn.textContent = "Pause";
+    });
+    videoList.appendChild(li);
+}
+    </script>
+  </body>
+</html>
